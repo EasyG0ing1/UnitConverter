@@ -12,21 +12,21 @@ The project is available as a Maven dependency on Central. Add the following to 
 <dependency>
     <groupId>com.simtechdata</groupId>
     <artifactId>UnitConverter</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
 </dependency>
 ```
 
 Or, if using Gradle to build, add this to your Gradle build file
 
 ```groovy
-compile group: 'com.simtechdata', name: 'UnitConverter', version: 1.0.0
+compile group: 'com.simtechdata', name: 'UnitConverter', version: 1.1.0
 ```
 
 You can even use it from a Groovy script!
 
 ```groovy
 @Grapes(
-  @Grab(group='com.simtechdata', module='UnitConverter', version=1.0.0)
+  @Grab(group='com.simtechdata', module='UnitConverter', version=1.1.0)
 )
 ```
 
@@ -35,15 +35,15 @@ You can even use it from a Groovy script!
 From the original README <a href="https://github.com/HanSolo/converter">found here</a>:
 
 A Java tool to convert between units. It covers the following categories of units:
- - ACCELERATION
+- ACCELERATION
    - METER_PER_SQUARE_SECOND
    - INCH_PER_SQUARE_SECOND
    - GRAVITY
- - ANGLE
+- ANGLE
    - DEGREE
    - RADIAN
    - GRAD
- - AREA
+- AREA
    - SQUARE_KILOMETER
    - SQUARE_METER
    - SQUARE_CENTIMETER
@@ -58,31 +58,45 @@ A Java tool to convert between units. It covers the following categories of unit
    - ARES
    - SQUARE_INCH
    - SQUARE_FOOT
- - DATA
-   - BIT
-   - KILOBIT
-   - MEGABIT
-   - GIGABIT
-   - BYTE
-   - KILOBYTE
-   - MEGABYTE
-   - GIGABYTE
-   - TERABYTE
- - CURRENT
+   - DATA (k=1024)
+      - BIT
+      - KILOBIT
+      - MEGABIT
+      - GIGABIT
+      - TERABIT
+      - PETABIT
+      - BYTE
+      - KILOBYTE
+      - MEGABYTE
+      - GIGABYTE
+      - TERABYTE
+      - PETABYTE
+   - DATA_B10 (k=1000)
+      - KILOBIT_B10
+      - MEGABIT_B10
+      - GIGABIT_B10
+      - TERABIT_B10
+      - PETABIT_B10
+      - KILOBYTE_B10
+      - MEGABYTE_B10
+      - GIGABYTE_B10
+      - TERABYTE_B10
+      - PETABYTE_B10
+- CURRENT
    - PICOAMPERE
    - NANOAMPERE
    - MICROAMPERE
    - MILLIAMPERE
    - AMPERE
    - KILOAMPERE
- - ELECTRIC_CHARGE
+- ELECTRIC_CHARGE
    - ELEMENTARY_CHARGE
    - PICOCOULOMB
    - NANOCOULOMB
    - MICROCOULOMB
    - MILLICOULOMB
    - COULOMB
- - ENERGY
+- ENERGY
    - MILLIJOULE
    - JOULE
    - KILOJOULE
@@ -93,13 +107,13 @@ A Java tool to convert between units. It covers the following categories of unit
    - WATT_HOUR
    - KILOWATT_SECOND
    - KILOWATT_HOUR
- - FORCE
+- FORCE
    - NEWTON
    - KILOGRAM_FORCE
    - POUND_FORCE
- - HUMIDITY
+- HUMIDITY
    - PERCENTAGE
- - LENGTH
+- LENGTH
    - KILOMETER
    - HECTOMETER
    - METER
@@ -122,19 +136,19 @@ A Java tool to convert between units. It covers the following categories of unit
    - POINT
    - PICA
    - EM
- - LUMINANCE
+- LUMINANCE
    - CANDELA_SQUARE_METER
    - CANDELA_SQUARE_CENTIMETER
    - CANDELA_SQUARE_INCH
    - CANDELA_SQAURE_FOOT
    - LAMBERT
    - FOOT_LAMBERT
- - LUMINOUS_FLUX
+- LUMINOUS_FLUX
    - LUX
    - PHOT
    - FOOT_CANDLE
    - LUMEN_SQUARE_INCH
- - MASS
+- MASS
    - TON
    - KILOGRAM
    - GRAM
@@ -145,7 +159,7 @@ A Java tool to convert between units. It covers the following categories of unit
    - FEMTOGRAM
    - OUNCE
    - POUND
- - PRESSURE
+- PRESSURE
    - MILLIPASCAL
    - PASCAL
    - HECTOPASCAL
@@ -156,22 +170,22 @@ A Java tool to convert between units. It covers the following categories of unit
    - PSI
    - PSF
    - ATMOSPHERE
- - SPEED
+- SPEED
    - MILLIMETER_PER_SECOND
    - METER_PER_SECOND
    - KILOMETER_PER_HOUR
    - MILES_PER_HOUR
    - KNOT
    - MACH
- - TEMPERATURE
+- TEMPERATURE
    - KELVIN
    - CELSIUS
    - FAHRENHEIT
- - TEMPERATURE_GRADIENT
+- TEMPERATURE_GRADIENT
    - KELVIN_PER_SECOND
    - KELVIN_PER_MINUTE
    - KEVLIN_PER_HOUR
- - TIME
+- TIME
    - WEEK
    - DAY
    - HOUR
@@ -182,12 +196,12 @@ A Java tool to convert between units. It covers the following categories of unit
    - NANOSECOND
    - PICOSECOND
    - FEMTOSECOND
- - TORQUE
+- TORQUE
    - NEWTON_METER
    - METER_KILOGRAM
    - FOOT_POUND_FORCE
    - INCH_POUND_FORCE
- - VOLUME
+- VOLUME
    - CUBIC_MILLIMETER
    - MILLILITER
    - LITER
@@ -195,12 +209,12 @@ A Java tool to convert between units. It covers the following categories of unit
    - GALLON
    - CUBIC_FEET
    - CUBIC_INCH
- - VOLTAGE
+- VOLTAGE
    - MILLIVOLT
    - VOLT
    - KILOVOLT
    - MEGAVOLT
- - WORK
+- WORK
    - MILLIWATT
    - WATT
    - KILOWATT
@@ -209,7 +223,7 @@ A Java tool to convert between units. It covers the following categories of unit
    - HORSEPOWER
    - JOULE_PER_SECOND
 
- #Usage
+#Usage
 
  ```Java
  Converter temperatureConverter = new Converter(TEMPERATURE, CELSIUS); // Type Temperature with BaseUnit Celsius
