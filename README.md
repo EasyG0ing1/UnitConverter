@@ -12,21 +12,21 @@ The project is available as a Maven dependency on Central. Add the following to 
 <dependency>
     <groupId>com.simtechdata</groupId>
     <artifactId>UnitConverter</artifactId>
-    <version>1.1.0</version>
+    <version>1.1.1</version>
 </dependency>
 ```
 
 Or, if using Gradle to build, add this to your Gradle build file
 
 ```groovy
-compile group: 'com.simtechdata', name: 'UnitConverter', version: 1.1.0
+compile group: 'com.simtechdata', name: 'UnitConverter', version: 1.1.1
 ```
 
 You can even use it from a Groovy script!
 
 ```groovy
 @Grapes(
-  @Grab(group='com.simtechdata', module='UnitConverter', version=1.1.0)
+  @Grab(group='com.simtechdata', module='UnitConverter', version=1.1.1)
 )
 ```
 
@@ -58,30 +58,43 @@ A Java tool to convert between units. It covers the following categories of unit
    - ARES
    - SQUARE_INCH
    - SQUARE_FOOT
-- DATA (k=1024)
-   - BIT
-   - KILOBIT
-   - MEGABIT
-   - GIGABIT
-   - TERABIT
-   - PETABIT
-   - BYTE
-   - KILOBYTE
-   - MEGABYTE
-   - GIGABYTE
-   - TERABYTE
-   - PETABYTE
-- DATA_B10 (k=1000)
-   - KILOBIT_B10
-   - MEGABIT_B10
-   - GIGABIT_B10
-   - TERABIT_B10
-   - PETABIT_B10
-   - KILOBYTE_B10
-   - MEGABYTE_B10
-   - GIGABYTE_B10
-   - TERABYTE_B10
-   - PETABYTE_B10
+- DATA
+  - BIT
+  - BYTE
+- k = 1024
+  - KILOBIT
+  - MEGABIT
+  - GIGABIT
+  - TERABIT
+  - PETABIT
+  - EXABIT
+  - ZETABIT
+  - YOTABIT
+  - KILOBYTE
+  - MEGABYTE
+  - GIGABYTE
+  - TERABYTE
+  - PETABYTE
+  - EXABYTE
+  - ZETABYTE
+  - YOTABYTE
+- k = 1000
+  - KILOBIT_B1000
+  - MEGABIT_B1000
+  - GIGABIT_B1000
+  - TERABIT_B1000
+  - PETABIT_B1000
+  - EXABIT_B1000
+  - ZETABIT_B1000
+  - YOTABIT_B1000
+  - KILOBYTE_B1000
+  - MEGABYTE_B1000
+  - GIGABYTE_B1000
+  - TERABYTE_B1000
+  - PETABYTE_B1000
+  - EXABYTE_B1000
+  - ZETABYTE_B1000
+  - YOTABYTE_B1000
 - CURRENT
    - PICOAMPERE
    - NANOAMPERE
