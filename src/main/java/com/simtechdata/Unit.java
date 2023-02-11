@@ -16,7 +16,7 @@
 
 package com.simtechdata;
 
-import com.simtechdata.Converter.Category;
+import com.simtechdata.UnitConverter.Category;
 
 import java.math.BigDecimal;
 

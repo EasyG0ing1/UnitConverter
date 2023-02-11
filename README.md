@@ -12,22 +12,28 @@ The project is available as a Maven dependency on Central. Add the following to 
 <dependency>
     <groupId>com.simtechdata</groupId>
     <artifactId>UnitConverter</artifactId>
-    <version>1.1.1</version>
+    <version>1.2.0</version>
 </dependency>
 ```
 
 Or, if using Gradle to build, add this to your Gradle build file
 
 ```groovy
-compile group: 'com.simtechdata', name: 'UnitConverter', version: 1.1.1
+compile group: 'com.simtechdata', name: 'UnitConverter', version: 1.2.0
 ```
 
 You can even use it from a Groovy script!
 
 ```groovy
 @Grapes(
-  @Grab(group='com.simtechdata', module='UnitConverter', version=1.1.1)
+  @Grab(group='com.simtechdata', module='UnitConverter', version=1.2.0)
 )
+```
+
+### Modular
+Compiled with Java 11, you will need this in your `module-info.java` file
+```Java
+requires com.simtechdata.unitconverter;
 ```
 
 ## UnitConverter
@@ -236,7 +242,7 @@ A Java tool to convert between units. It covers the following categories of unit
    - HORSEPOWER
    - JOULE_PER_SECOND
 
-#Usage
+## Usage
 
  ```Java
  Converter temperatureConverter = new Converter(TEMPERATURE, CELSIUS); // Type Temperature with BaseUnit Celsius
@@ -270,7 +276,3 @@ String millivolts = voltConverter.convertToString(volts, MILLIVOLT);
 String kilivolts = voltConverter.convertToString(volts, KILOVOLT);
 System.out.println(volts + " " + voltConverter.getUnitShort() + " => " + millivolts + " => " + kilivolts);
 ```
-
-That's basically all it takes to create a very powerful unit converter.
-
-I did my best at documenting the class as much as I could ... thre were a few items I struggled to understand in context and meaning ... but ... it's a great tool that hopefully you will find as useful as I have.

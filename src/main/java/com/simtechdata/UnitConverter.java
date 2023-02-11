@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 /**
  * All categories that can be used for converting units within each.
  */
-public class Converter {
+public class UnitConverter {
 	public enum Category {
 		ACCELERATION,
 		ANGLE,
@@ -292,7 +292,7 @@ public class Converter {
 
 	public static final  String[]                          ABBREVIATIONS      = {"k", "M", "G", "T", "P", "E", "Z", "Y"};
 	public static final  int                               MAX_NO_OF_DECIMALS = 12;
-	private static final EnumMap<Category, UnitDefinition> BASE_UNITS         = new EnumMap<Category, UnitDefinition>(Category.class) {
+	private static final EnumMap<Category, UnitDefinition> BASE_UNITS         = new EnumMap<>(Category.class) {
 		{
 			put(Category.ACCELERATION, UnitDefinition.METER_PER_SQUARE_SECOND);
 			put(Category.ANGLE, UnitDefinition.RADIAN);
@@ -328,11 +328,11 @@ public class Converter {
 
 
 	// ******************** Constructors **************************************
-	public Converter(final Category UNIT_TYPE) {
+	public UnitConverter(final Category UNIT_TYPE) {
 		this(UNIT_TYPE, BASE_UNITS.get(UNIT_TYPE));
 	}
 
-	public Converter(final Category UNIT_TYPE, final UnitDefinition BASE_UNIT_DEFINITION) {
+	public UnitConverter(final Category UNIT_TYPE, final UnitDefinition BASE_UNIT_DEFINITION) {
 		baseUnitDefinition = BASE_UNIT_DEFINITION;
 		bean               = BASE_UNITS.get(UNIT_TYPE).UNIT;
 		locale             = Locale.US;
