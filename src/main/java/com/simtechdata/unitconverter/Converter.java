@@ -14,17 +14,19 @@
  * limitations under the License.
  */
 
-package com.simtechdata;
+package com.simtechdata.unitconverter;
 
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-/**
- * All categories that can be used for converting units within each.
- */
-public class UnitConverter {
+
+public class Converter {
+
+	/**
+	 * All categories
+	 */
 	public enum Category {
 		ACCELERATION,
 		ANGLE,
@@ -35,12 +37,14 @@ public class UnitConverter {
 		ELECTRIC_CHARGE,
 		ENERGY,
 		FORCE,
+		GENERAL,
 		HUMIDITY,
 		LENGTH,
 		LUMINANCE,
 		LUMINOUS_FLUX,
 		MASS,
 		PRESSURE,
+		RESISTANCE,
 		SPEED,
 		TEMPERATURE,
 		TEMPERATURE_GRADIENT,
@@ -52,6 +56,10 @@ public class UnitConverter {
 		BLOOD_GLUCOSE
 	}
 
+
+	/**
+	 * Definition of all the units used for conversions.
+	 */
 	public enum UnitDefinition {
 		// Length
 		KILOMETER(new Unit(Category.LENGTH, "km", "Kilometer", new BigDecimal("1000.0"))),
@@ -136,8 +144,18 @@ public class UnitConverter {
 		CUBIC_FEET(new Unit(Category.VOLUME, "ft\u00b3", "Cubic Foot", new BigDecimal("0.0283168466"))),
 		CUBIC_INCH(new Unit(Category.VOLUME, "in\u00b3", "Cubic Inch", new BigDecimal("0.0000163871"))),
 
+		//Resistance
+		NANOOHM(new Unit(Category.RESISTANCE, "n\u03a9", "Nanoohm", new BigDecimal("1.0E-9"))),
+		MICROOHM(new Unit(Category.RESISTANCE, "\u00b5\u03a9", "Microohm", new BigDecimal("1.0E-6"))),
+		MILLIOHM(new Unit(Category.RESISTANCE, "m\u03a9", "Milliohm", new BigDecimal("1.0E-3"))),
+		OHM(new Unit(Category.RESISTANCE, "\u03a9", "Ohm", new BigDecimal("1.0E0"))),
+		KILOOHM(new Unit(Category.RESISTANCE, "k\u03a9", "Kiloohm", new BigDecimal("1.0E3"))),
+		MEGAOHM(new Unit(Category.RESISTANCE, "M\u03a9", "Megaohm", new BigDecimal("1.0E6"))),
+
 		// Voltage
 		MILLIVOLT(new Unit(Category.VOLTAGE, "mV", "Millivolt", new BigDecimal("1.0E-3"))),
+		MICROVOLT(new Unit(Category.VOLTAGE, "\u00b5V", "Microvolt", new BigDecimal("1.0E-6"))),
+		NANOVOLT(new Unit(Category.VOLTAGE, "nV", "Nanovolt", new BigDecimal("1.0E-9"))),
 		VOLT(new Unit(Category.VOLTAGE, "V", "Volt", new BigDecimal("1.0E0"))),
 		KILOVOLT(new Unit(Category.VOLTAGE, "kV", "Kilovolt", new BigDecimal("1.0E3"))),
 		MEGAVOLT(new Unit(Category.VOLTAGE, "MV", "Megavolt", new BigDecimal("1.0E6"))),
@@ -278,9 +296,34 @@ public class UnitConverter {
 		PX(new Unit(Category.CSS_UNITS, "px", "Pixel", new BigDecimal("1.0"))),
 		PT(new Unit(Category.CSS_UNITS, "pt", "Point", new BigDecimal("0.75"))),
 
-		// Blood Glucose
+
+		// Blood Glucose,
 		MILLIGRAM_PER_DECILITER(new Unit(Category.BLOOD_GLUCOSE, "mg/dl", "Milligram per deciliter", new BigDecimal("0.0555"))),
-		MILLIMOL_PER_LITER(new Unit(Category.BLOOD_GLUCOSE, "mmol/l", "Millimols per liter", new BigDecimal("1.0")));
+		MILLIMOL_PER_LITER(new Unit(Category.BLOOD_GLUCOSE, "mmol/l", "Millimols per liter", new BigDecimal("1.0"))),
+
+		//General
+		YOTA(new Unit(Category.GENERAL, "Y", "Yota", new BigDecimal("1.0E24"))),
+		ZETTA(new Unit(Category.GENERAL, "Z", "Zetta", new BigDecimal("1.0E21"))),
+		EXA(new Unit(Category.GENERAL, "E", "Exa", new BigDecimal("1.0E18"))),
+		PETA(new Unit(Category.GENERAL, "P", "Peta", new BigDecimal("1.0E15"))),
+		TERA(new Unit(Category.GENERAL, "T", "Tera", new BigDecimal("1.0E12"))),
+		GIGA(new Unit(Category.GENERAL, "G", "Mega", new BigDecimal("1.0E9"))),
+		MEGA(new Unit(Category.GENERAL, "M", "Mega", new BigDecimal("1.0E6"))),
+		KILO(new Unit(Category.GENERAL, "k", "Kilo", new BigDecimal("1.0E3"))),
+		HECTO(new Unit(Category.GENERAL, "h", "Hecto", new BigDecimal("1.0E2"))),
+		DECA(new Unit(Category.GENERAL, "da", "Deca", new BigDecimal("1.0E1"))),
+		GENERAL_BASE(new Unit(Category.GENERAL, "", "", new BigDecimal("1.0E0"))),
+		DECI(new Unit(Category.GENERAL, "d", "Deci", new BigDecimal("1.0E-1"))),
+		CENTI(new Unit(Category.GENERAL, "c", "Centi", new BigDecimal("1.0E-2"))),
+		MILLI(new Unit(Category.GENERAL, "m", "Milli", new BigDecimal("1.0E-3"))),
+		MICRO(new Unit(Category.GENERAL, "\u00b5", "Micro", new BigDecimal("1.0E-6"))),
+		NANO(new Unit(Category.GENERAL, "n", "Nano", new BigDecimal("1.0E-9"))),
+		PICO(new Unit(Category.GENERAL, "p", "Pico", new BigDecimal("1.0E-12"))),
+		FEMPTO(new Unit(Category.GENERAL, "f", "Fempto", new BigDecimal("1.0E-15"))),
+		ATTO(new Unit(Category.GENERAL, "a", "Atto", new BigDecimal("1.0E-18"))),
+		ZEPTO(new Unit(Category.GENERAL, "z", "Zepto", new BigDecimal("1.0E-21"))),
+		YOCTO(new Unit(Category.GENERAL, "y", "Yocto", new BigDecimal("1.0E-24")));
+
 
 
 		public final Unit UNIT;
@@ -290,9 +333,13 @@ public class UnitConverter {
 		}
 	}
 
-	public static final  String[]                          ABBREVIATIONS      = {"k", "M", "G", "T", "P", "E", "Z", "Y"};
-	public static final  int                               MAX_NO_OF_DECIMALS = 12;
-	private static final EnumMap<Category, UnitDefinition> BASE_UNITS         = new EnumMap<>(Category.class) {
+	public static final String[] ABBREVIATIONS      = {"k", "M", "G", "T", "P", "E", "Z", "Y"};
+	public static final int      MAX_NO_OF_DECIMALS = 12;
+
+	/**
+	 * An EnumMap that assigns the appropriate base units to its Category
+	 */
+	private static final EnumMap<Category, UnitDefinition> BASE_UNITS = new EnumMap<>(Category.class) {
 		{
 			put(Category.ACCELERATION, UnitDefinition.METER_PER_SQUARE_SECOND);
 			put(Category.ANGLE, UnitDefinition.RADIAN);
@@ -325,14 +372,26 @@ public class UnitConverter {
 	private Locale         locale;
 	private int            decimals;
 	private String         formatString;
-
+	private String         generalUnitDefinition;
 
 	// ******************** Constructors **************************************
-	public UnitConverter(final Category UNIT_TYPE) {
+
+	/**
+	 * Constructor for instantiating the class.
+	 *
+	 * @param UNIT_TYPE Minimal requirement that establishes which Category this instance of the class will convert in.
+	 */
+	public Converter(final Category UNIT_TYPE) {
 		this(UNIT_TYPE, BASE_UNITS.get(UNIT_TYPE));
 	}
 
-	public UnitConverter(final Category UNIT_TYPE, final UnitDefinition BASE_UNIT_DEFINITION) {
+	/**
+	 * Optional Constructor where you can further define the BASE UNIT to convert FROM when converting to other units within that Category.
+	 *
+	 * @param UNIT_TYPE            Category enum type
+	 * @param BASE_UNIT_DEFINITION UnitDefinition enum that is associated with the given Category
+	 */
+	public Converter(final Category UNIT_TYPE, final UnitDefinition BASE_UNIT_DEFINITION) {
 		baseUnitDefinition = BASE_UNIT_DEFINITION;
 		bean               = BASE_UNITS.get(UNIT_TYPE).UNIT;
 		locale             = Locale.US;
@@ -341,63 +400,133 @@ public class UnitConverter {
 	}
 
 
-	// ******************** Methods *******************************************
+	// ******************** Builder class and Constructor **************************************
+
+	/**
+	 * Builder class - an option for instantiation where you can provide the number of decimal places returned as well as the Locale which is relevant in the convertToString method
+	 */
+	public static class Builder {
+		private final Category       UNIT_TYPE;
+		private       UnitDefinition baseUnitDefinition;
+		private       Unit           bean;
+		private       Locale         locale;
+		private       int            decimals              = -1;
+		private       String         generalUnitDefinition = "";
+
+		public Builder(final Category UNIT_TYPE) {
+			this.UNIT_TYPE = UNIT_TYPE;
+		}
+
+		public Builder units(final UnitDefinition units) {
+			this.baseUnitDefinition = units;
+			return this;
+		}
+
+		public Builder locale(Locale locale) {
+			this.locale = locale;
+			return this;
+		}
+
+		public Builder decimals(int decimals) {
+			this.decimals = checkDecimals(decimals);
+			return this;
+		}
+
+		public Builder generalUnit(String unit) {
+			this.generalUnitDefinition = unit;
+			return this;
+		}
+
+		private void finalizeValues() {
+			if (locale == null) locale = Locale.US;
+			if (baseUnitDefinition == null) baseUnitDefinition = BASE_UNITS.get(UNIT_TYPE);
+			decimals = checkDecimals(decimals);
+			bean     = baseUnitDefinition.UNIT;
+		}
+
+		public Converter build() {
+			finalizeValues();
+			return new Converter(this);
+		}
+	}
+
+	/**
+	 * Private constructor used by the Builder class
+	 *
+	 * @param build an instantiation of the Builder class
+	 */
+	private Converter(Builder build) {
+		this.baseUnitDefinition    = build.baseUnitDefinition;
+		this.bean                  = build.bean;
+		this.locale                = build.locale;
+		this.decimals              = build.decimals;
+		this.generalUnitDefinition = build.generalUnitDefinition;
+		setFormatString();
+	}
+
+
+	// ******************** Methods ****************************
+
+
+	// Getters
+
+	/**
+	 * Return the NAME of the Category assigned to this instance of the class.
+	 *
+	 * @return Name of Category.
+	 */
 	public Category getUnitType() {return bean.getCategory();}
 
+	/**
+	 * Get the NAME of the base unit defined during class instantiation.
+	 *
+	 * @return Name of base unit
+	 */
 	public UnitDefinition getBaseUnitDefinition() {return baseUnitDefinition;}
 
-	public void setBaseUnitDefinition(final UnitDefinition BASE_UNIT_DEFINITION) {
-		if (BASE_UNIT_DEFINITION.UNIT.getCategory() == getUnitType()) {baseUnitDefinition = BASE_UNIT_DEFINITION;}
-	}
+	/**
+	 * @return factor of conversion
+	 */
+	public BigDecimal getFactor() {return bean.getFactor();}
 
-	public BigDecimal getFactor()              {return bean.getFactor();}
+	/**
+	 * @return conversion offset
+	 */
+	public BigDecimal getOffset() {return bean.getOffset();}
 
-	public BigDecimal getOffset()              {return bean.getOffset();}
+	/**
+	 * @return full name of the assigned base unit
+	 */
+	public String getUnitName() {return bean.getUnitName();}
 
-	public String getUnitName()                {return bean.getUnitName();}
+	/**
+	 * @return the SI suffix for the category assigned to this instance of the class
+	 */
+	public String getUnitShort() {return bean.getUnitShort();}
 
-	public String getUnitShort()               {return bean.getUnitShort();}
+	/**
+	 * @return return the string value of the assigned Locale
+	 */
+	public Locale getLocale() {return locale;}
 
-	public Locale getLocale()                  {return locale;}
+	/**
+	 * @return return the number of decimal places assigned to the String output of this class instance
+	 */
+	public int getDecimals() {return decimals;}
 
-	public void setLocale(final Locale LOCALE) {locale = LOCALE;}
+	/**
+	 * @return the format string used by the convertToString method
+	 */
+	public String getFormatString() {return formatString;}
 
-	public int getDecimals()                   {return decimals;}
+	/**
+	 * @return true if active, false if not
+	 */
+	public final boolean isActive() {return bean.isActive();}
 
-	public void setDecimals(final int DECIMALS) {
-		if (DECIMALS < 0) {
-			decimals = 0;
-		}
-		else if (DECIMALS > MAX_NO_OF_DECIMALS) {
-			decimals = MAX_NO_OF_DECIMALS;
-		}
-		else {
-			decimals = DECIMALS;
-		}
-		formatString = new StringBuilder("%.").append(decimals).append("f").toString();
-	}
-
-	public String getFormatString()                   {return formatString;}
-
-	public final boolean isActive()                   {return bean.isActive();}
-
-	public final void setActive(final boolean ACTIVE) {bean.setActive(ACTIVE);}
-
-	public final double convert(final double VALUE, final UnitDefinition UNIT_DEFINITION) {
-		if (UNIT_DEFINITION.UNIT.getCategory() != getUnitType()) {throw new IllegalArgumentException("units have to be of the same type");}
-		return ((((VALUE + baseUnitDefinition.UNIT.getOffset().doubleValue()) * baseUnitDefinition.UNIT.getFactor().doubleValue()) + bean.getOffset().doubleValue()) * bean.getFactor().doubleValue()) / UNIT_DEFINITION.UNIT
-				.getFactor().doubleValue() - UNIT_DEFINITION.UNIT.getOffset().doubleValue();
-	}
-
-	public final String convertToString(final double VALUE, final UnitDefinition UNIT_DEFINITION) {
-		return String.join(" ", String.format(locale, formatString, convert(VALUE, UNIT_DEFINITION)), UNIT_DEFINITION.UNIT.getUnitShort());
-	}
-
-	public final double convertToBaseUnit(final double VALUE, final UnitDefinition UNIT_DEFINITION) {
-		return ((((VALUE + UNIT_DEFINITION.UNIT.getOffset().doubleValue()) * UNIT_DEFINITION.UNIT.getFactor().doubleValue()) + bean.getOffset().doubleValue()) * bean.getFactor().doubleValue()) / baseUnitDefinition.UNIT
-				.getFactor().doubleValue() - baseUnitDefinition.UNIT.getOffset().doubleValue();
-	}
-
+	/**
+	 * @return a String of all SI unit suffixes that this class can manage and convert
+	 */
 	public final Pattern getPattern() {
 		final StringBuilder PATTERN_BUILDER = new StringBuilder();
 		PATTERN_BUILDER.append("^([-+]?\\d*\\.?\\d*)\\s?(");
@@ -414,10 +543,17 @@ public class UnitConverter {
 		return Pattern.compile(PATTERN_BUILDER.toString());
 	}
 
+	/**
+	 * @param UNIT_DEFINITION Any item from the Category enum
+	 * @return List of the available units that can be converted within the supplied Category
+	 */
 	public final List<Unit> getAvailableUnits(final Category UNIT_DEFINITION) {
 		return getAllUnitDefinitions().get(UNIT_DEFINITION).stream().map(unitDefinition -> unitDefinition.UNIT).collect(Collectors.toList());
 	}
 
+	/**
+	 * @return a Map keyed on Category and providing for each Category, the name of every possible unit within that Category
+	 */
 	public final EnumMap<Category, ArrayList<UnitDefinition>> getAllUnitDefinitions() {
 		final EnumMap<Category, ArrayList<UnitDefinition>> UNIT_TYPES    = new EnumMap<>(Category.class);
 		final ArrayList<Category>                          CATEGORY_LIST = new ArrayList<>(Category.values().length);
@@ -429,6 +565,9 @@ public class UnitConverter {
 		return UNIT_TYPES;
 	}
 
+	/**
+	 * @return same as getAllUnitDefinitions but only returns those which are currently active
+	 */
 	public final EnumMap<Category, ArrayList<UnitDefinition>> getAllActiveUnitDefinitions() {
 		final EnumMap<Category, ArrayList<UnitDefinition>> UNIT_DEFINITIONS = new EnumMap<>(Category.class);
 		final ArrayList<Category>                          CATEGORY_LIST    = new ArrayList<>(Category.values().length);
@@ -440,10 +579,117 @@ public class UnitConverter {
 		return UNIT_DEFINITIONS;
 	}
 
+
+	//Setters
+
+
+	/**
+	 * Allows you to re-define the instantiated class with a new based unit definition
+	 *
+	 * @param BASE_UNIT_DEFINITION your desired base unit.
+	 */
+	public void setBaseUnitDefinition(final UnitDefinition BASE_UNIT_DEFINITION) {
+		if (BASE_UNIT_DEFINITION.UNIT.getCategory() == getUnitType()) {baseUnitDefinition = BASE_UNIT_DEFINITION;}
+	}
+
+	/**
+	 * Used to change the assigned Locale of this class instance
+	 *
+	 * @param LOCALE - your chosen Locale
+	 */
+	public void setLocale(final Locale LOCALE) {locale = LOCALE;}
+
+	/**
+	 * Used to change the number of output decimals in the convertToString method.
+	 *
+	 * @param DECIMALS - your desired number of decimal places in the output
+	 */
+	public void setDecimals(final int DECIMALS) {
+		if (DECIMALS < 0) {
+			decimals = 0;
+		}
+		else if (DECIMALS > MAX_NO_OF_DECIMALS) {
+			decimals = MAX_NO_OF_DECIMALS;
+		}
+		else {
+			decimals = DECIMALS;
+		}
+		formatString = new StringBuilder("%.").append(decimals).append("f").toString();
+	}
+
+	/**
+	 * Sets the instantianted class active or not
+	 *
+	 * @param ACTIVE - true or false
+	 */
+	public final void setActive(final boolean ACTIVE) {bean.setActive(ACTIVE);}
+
+	public final void setGeneralUnitDefinition(String generalUnitDefinition, final UnitDefinition BASE_UNIT_DEFINITION) {
+		this.generalUnitDefinition = generalUnitDefinition;
+		if (BASE_UNIT_DEFINITION.UNIT.getCategory() == getUnitType()) {baseUnitDefinition = BASE_UNIT_DEFINITION;}
+	}
+
+	//Action methods
+
+
+	/**
+	 * Main method that is core to the class. This is where you get back the answer you need from your defined base unit by passing in the unit you need the base converted to.
+	 *
+	 * @param VALUE           the double that represents your quantity in terms of your chosen base unit.
+	 * @param UNIT_DEFINITION the unit that you need your VALUE converted to.
+	 * @return - double containing the result of the conversion.
+	 */
+	public final double convert(final double VALUE, final UnitDefinition UNIT_DEFINITION) {
+		if (UNIT_DEFINITION.UNIT.getCategory() != getUnitType()) {throw new IllegalArgumentException("units have to be of the same type");}
+		return ((((VALUE + baseUnitDefinition.UNIT.getOffset().doubleValue()) * baseUnitDefinition.UNIT.getFactor().doubleValue()) + bean.getOffset().doubleValue()) * bean.getFactor().doubleValue()) / UNIT_DEFINITION.UNIT
+				.getFactor().doubleValue() - UNIT_DEFINITION.UNIT.getOffset().doubleValue();
+	}
+
+	/**
+	 * This does the exact same thing as the convert method, only it applies the defined number of decimal places you want as well as the Locale setting to the output.
+	 *
+	 * @param VALUE           the double that represents your quantity in terms of your chosen base unit.
+	 * @param UNIT_DEFINITION the unit that you need your VALUE converted to.
+	 * @return A string, formatted to your parameters of the resulting conversion.
+	 */
+	public final String convertToString(final double VALUE, final UnitDefinition UNIT_DEFINITION) {
+		if(bean.getCategory() ==  Category.GENERAL) {
+			return String.join(" ", String.format(locale, formatString, convert(VALUE, UNIT_DEFINITION)), UNIT_DEFINITION.UNIT.getUnitShort() + generalUnitDefinition);
+		}
+		return String.join(" ", String.format(locale, formatString, convert(VALUE, UNIT_DEFINITION)), UNIT_DEFINITION.UNIT.getUnitShort());
+	}
+
+	/**
+	 * convert value to its base unit (kilobytes to bytes etc.).
+	 *
+	 * @param VALUE           a double
+	 * @param UNIT_DEFINITION a desired base unit
+	 * @return some factor of the VALUE passed
+	 */
+	public final double convertToBaseUnit(final double VALUE, final UnitDefinition UNIT_DEFINITION) {
+		return ((((VALUE + UNIT_DEFINITION.UNIT.getOffset().doubleValue()) * UNIT_DEFINITION.UNIT.getFactor().doubleValue()) + bean.getOffset().doubleValue()) * bean.getFactor().doubleValue()) / baseUnitDefinition.UNIT
+				.getFactor().doubleValue() - baseUnitDefinition.UNIT.getOffset().doubleValue();
+	}
+
+	/**
+	 * This is just a simple utility method that will take the number passed in the argument along with the number of decimal places and will return a String formatted to produce the number with the chosen decimal places.
+	 *
+	 * @param NUMBER   a double that you provide
+	 * @param DECIMALS how many decimal places you wish the resulting String to present
+	 * @return the formatted String result
+	 */
 	public static final String format(final double NUMBER, final int DECIMALS) {
 		return format(NUMBER, clamp(0, 12, DECIMALS), Locale.US);
 	}
 
+	/**
+	 * Overloaded method exactly like the first one, only you can also include a Locale which can affect the formatting of the output String.
+	 *
+	 * @param NUMBER   a double that you provide
+	 * @param DECIMALS how many decimal places you wish the resulting String to present
+	 * @param LOCALE   your desired Locale
+	 * @return the formatted String result
+	 */
 	public static final String format(final double NUMBER, final int DECIMALS, final Locale LOCALE) {
 		String formatString = new StringBuilder("%.").append(clamp(0, 12, DECIMALS)).append("f").toString();
 		double value;
@@ -456,11 +702,40 @@ public class UnitConverter {
 		return String.format(LOCALE, formatString, NUMBER);
 	}
 
+
+	//Helpers
+
+	/**
+	 * Used to ensure that VALUE does not go out of bounds.
+	 *
+	 * @param MIN   lower bound
+	 * @param MAX   upper bound
+	 * @param VALUE the value being constrained
+	 */
 	private static int clamp(final int MIN, final int MAX, final int VALUE) {
 		if (VALUE < MIN) return MIN;
 		if (VALUE > MAX) return MAX;
 		return VALUE;
 	}
 
+	private static int checkDecimals(int decimals) {
+		return (decimals < 0) ? 2 : Math.min(decimals, MAX_NO_OF_DECIMALS);
+	}
+
+	private void setFormatString() {
+		formatString = "%." + decimals + "f";
+	}
+
+	private static String getFormatString(int decimals) {
+		return "%." + decimals + "f";
+	}
+
+	//Parent class Override methods
+
+	/**
+	 * Standard toString output.
+	 *
+	 * @return a String formatted for output containing the assigned unit type for this class instance
+	 */
 	@Override public String toString() {return getUnitType().toString();}
 }

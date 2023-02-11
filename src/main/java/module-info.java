@@ -1,3 +1,3 @@
 module com.simtechdata.unitconverter {
-	exports com.simtechdata;
+	exports com.simtechdata.unitconverter;
 }

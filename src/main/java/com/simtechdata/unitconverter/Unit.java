@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.simtechdata;
+package com.simtechdata.unitconverter;
 
-import com.simtechdata.UnitConverter.Category;
+import com.simtechdata.unitconverter.Converter.Category;
 
 import java.math.BigDecimal;
 

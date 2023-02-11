@@ -189,6 +189,13 @@ A Java tool to convert between units. It covers the following categories of unit
    - PSI
    - PSF
    - ATMOSPHERE
+- RESISTANCE
+   - NANOOHM
+   - MICROOHM
+   - MILLIOHM
+   - OHM
+   - KILOOHM
+   - MEGAOHM
 - SPEED
    - MILLIMETER_PER_SECOND
    - METER_PER_SECOND
@@ -230,6 +237,8 @@ A Java tool to convert between units. It covers the following categories of unit
    - CUBIC_INCH
 - VOLTAGE
    - MILLIVOLT
+   - MICROVOLT
+   - NANOVOLT
    - VOLT
    - KILOVOLT
    - MEGAVOLT
@@ -241,6 +250,28 @@ A Java tool to convert between units. It covers the following categories of unit
    - GIGAWATT
    - HORSEPOWER
    - JOULE_PER_SECOND
+- GENERAL
+   - YOTA
+   - ZETTA
+   - EXA
+   - PETA
+   - TERA
+   - GIGA
+   - MEGA
+   - KILO
+   - HECTO
+   - DECA
+   - GENERAL_BASE
+   - DECI
+   - CENTI
+   - MILLI
+   - MICRO
+   - NANO
+   - PICO
+   - FEMPTO
+   - ATTO
+   - ZEPTO
+   - YOCTO
 
 ## Usage
 
@@ -265,9 +296,9 @@ A Java tool to convert between units. It covers the following categories of unit
 
 ## Additional Features
 
-### Builder Method
+### Builder Class
 
-Lets you optionally set the number of decimal places in the output as well as the Locale on a single instantiation line. Those two settings only apply when using the `convertToString` method of the class.
+Lets you create your Converter using Builder style, which can be preferable for readibility and usability, allowing you to set all parameters in a single line of code. Leverage the intelligent coding assistance that your IDE provides to make it easier to access the relevant parameters of Converter.
 
 ```Java
 Converter voltConverter = new Converter.Builder(VOLTAGE, VOLT).decimals(4).locale(Locale.GERMANY).build();
@@ -276,3 +307,32 @@ String millivolts = voltConverter.convertToString(volts, MILLIVOLT);
 String kilivolts = voltConverter.convertToString(volts, KILOVOLT);
 System.out.println(volts + " " + voltConverter.getUnitShort() + " => " + millivolts + " => " + kilivolts);
 ```
+```Java
+Converter voltConverter = new Converter.Builder(DATA)
+                                       .units(GIGABYTES)
+                                       .decimals(2)
+                                       .locale(Locale.GERMANY)
+                                       .build();
+```
+
+## General Unit
+General is a unit that you can use to convert values within the standard scientific notation conversion steps. You can assign any word you'd like to the unit and you use it in either one of these two ways:
+```Java
+Converter c = new Converter(GENERAL, GENERAL_BASE);
+c.setGeneralUnitDefinition("Blurbs", GENERAL_BASE);
+douoble blurbs = 123;
+double kiloBlurbs = c.convert(blurbs, KILO);
+double microBlurbs = c.convert(blurbs,MICRO);
+```
+
+OR
+
+```Java
+Converter c = new Converter.Builder(GENERAL).units(GENERAL_BASE).decimals(3).generalUnit("Blurbs").build();
+double blurbs = 12345;
+double kiloBlurbs = c.convert(blurbs, KILO);
+double microBlurbs = c.convert(blurbs,MICRO);
+System.out.println(c.convertToString(blurbs, KILO));
+```
+Output:
+> 12.345 kBlurbs
